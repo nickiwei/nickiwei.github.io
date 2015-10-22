@@ -31,7 +31,7 @@ tags:
 
 <p id = "build"></p>
 
-博客使用了git/github+jekyll+markdown实现， 使用了开源的jekyll模板， 感谢<a href="http://huangxuan.me">Hux</a>贡献开源模板， 非常好看。
+博客使用了git/github+jekyll+markdown实现， 使用了开源的jekyll模板。
 
 使用了bower+npm+grunt进行前端代码开发环境的管理， 使用ruby/gem+bundle+jekyll搭建本地测试环境，当然， 使用git/github进行版本管理。
 
