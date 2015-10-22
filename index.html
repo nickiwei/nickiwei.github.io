@@ -3,6 +3,13 @@ layout: page
 description: "It's hacking time."
 ---
 
+<select onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
+    <option value="0" selected> 全部 All </option>
+    <option value="1"> 技术 Tech </option>
+    <option value="2"> 商业 Business </option>
+    <option value="3"> 其他 Business </option>
+</select>
+
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">

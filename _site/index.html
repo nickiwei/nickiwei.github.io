@@ -155,7 +155,14 @@
                 col-xs-12
                 post-container
             ">
-    			
+    			<select onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
+    <option value="0" selected> 全部 All </option>
+    <option value="1"> 技术 Tech </option>
+    <option value="2"> 商业 Business </option>
+    <option value="3"> 其他 Business </option>
+</select>
+
+
 <div class="post-preview">
     <a href="/2015/10/22/Welcome%20to%20my%20blog/">
         <h2 class="post-title">
