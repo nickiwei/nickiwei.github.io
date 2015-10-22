@@ -1,0 +1,61 @@
+# Site settings
+title: 凡丁的博客
+SEOTitle: 凡丁的博客 | Fanding's Blog
+header-img: img/bg-dark-city.jpg
+email: nick_fandingwei@outlook.com
+description: "凡丁的博客。"
+baseurl: ""
+
+
+
+
+# SNS settings
+RSS: false
+weibo_username:     279699558
+zhihu_username:     wei-fan-ding
+github_username:    nickiwei
+twitter_username:  nick_fandingwei
+facebook_username:  fandingwei
+
+
+
+# Build settings
+highlighter: pygments
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+# Sidebar settings
+sidebar: true                          # whether or not using Sidebar.
+sidebar-about-description: "Wechat QR Code"
+sidebar-avatar: /img/selfie.jpg     # use absolute URL.
+sidebar-about-description2: "Contact with me"
+sidebar-avatar2: /img/wechat.png 
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Friends
+friends: [
+    {
+        title: "Hux的博客",
+        href: "http://huangxuan.me//"
+    }
+]
