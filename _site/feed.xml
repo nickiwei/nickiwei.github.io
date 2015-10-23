@@ -5,8 +5,8 @@
     <description>凡丁的博客。</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 22 Oct 2015 18:36:20 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Oct 2015 18:36:20 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Oct 2015 14:18:59 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Oct 2015 14:18:59 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -33,7 +33,7 @@
 
 &lt;p id=&quot;build&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;博客使用了git/github+jekyll+markdown实现， 使用了开源的jekyll模板， 感谢&lt;a href=&quot;http://huangxuan.me&quot;&gt;Hux&lt;/a&gt;贡献开源模板， 非常好看。&lt;/p&gt;
+&lt;p&gt;博客使用了git/github+jekyll+markdown实现， 使用了开源的jekyll模板。&lt;/p&gt;
 
 &lt;p&gt;使用了bower+npm+grunt进行前端代码开发环境的管理， 使用ruby/gem+bundle+jekyll搭建本地测试环境，当然， 使用git/github进行版本管理。&lt;/p&gt;
 
