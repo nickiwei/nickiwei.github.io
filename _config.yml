@@ -41,7 +41,7 @@ kramdown:
 # Sidebar settings
 sidebar: true                          # whether or not using Sidebar.
 sidebar-about-description: "Wechat QR Code"
-sidebar-avatar: /img/selfie.jpg     # use absolute URL.
+sidebar-avatar: /img/about_selfie.jpg     # use absolute URL.
 sidebar-about-description2: "Contact with me"
 sidebar-avatar2: /img/wechat.png 
 
@@ -55,7 +55,7 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
-        title: "Hux的博客",
-        href: "http://huangxuan.me//"
+        title: "May的博客",
+        href: "http://may.me//"
     }
 ]
