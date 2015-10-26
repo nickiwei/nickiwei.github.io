@@ -23,7 +23,7 @@ tags:
 
 最后， 希望大家在这里玩的开心， 能够真的提供一些有用的干货给大家。
 
-It's test test tste
+It's test test.
 
 ---
 
