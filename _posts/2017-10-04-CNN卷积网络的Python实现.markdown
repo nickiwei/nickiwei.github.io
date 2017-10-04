@@ -13,7 +13,6 @@ tags:
 
 *本文中的部分代码来自于Stanford CS231n 课程作业。*
 
----
 
 ## 卷积网络的优势
 
@@ -34,7 +33,7 @@ tags:
 
 ## Naive 版本卷积层Layer的实现
 
-###Forward Pass
+### Forward Pass
 
 Forward Pass中最重要的就是理解， 结果tensor与原tensor的对应关系。如下图：
 
@@ -91,7 +90,7 @@ def conv_forward_naive(x, w, b, conv_param):
 
 	X[n, :, i\*stride:i\*stride+HH, j\*stride:j*stride+WW]
 
-###Backward Pass
+### Backward Pass
 
 要理解到， 神经网络的一个重要特性就是， 用卷积网络逼近复杂的函数， 从而用相对简单的神经网络梯度， 代替复杂的分析函数的梯度。 这里实现了最简单的卷积网络的梯度：
 
@@ -140,7 +139,7 @@ def conv_backward_naive(dout, cache):
 
 在理解了naive版本的卷积实现后， 我们开始考虑加速卷积。这一部分是本文的难点所在。
 
-###Forward Pass
+### Forward Pass
 
 优化的核心还是老套路，考虑用矩阵乘法代替多重for循环， 从而降低运算复杂度。希望构造一个更大的矩阵， 使得该矩阵的每一列和向量化的卷积核的内积。
 
@@ -207,5 +206,5 @@ def im2col_cython(x, WW, HH, pad, stride):
     return x_cols
 ```
 
-###Backward Pass
+### Backward Pass
 
