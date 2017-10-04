@@ -8,9 +8,6 @@ tags:
     - 深度学习
 ---
 
-> “Yeah It's on. ”
-
-#CNN卷积网络的Python实现
 
 在简要说明为什么要引入卷积网络之后， 利用Numpy 实现了naive版本的卷积网络的forward pass核backward pass， 并介绍了快速卷积网络的实现。
 
@@ -20,14 +17,14 @@ tags:
 
 卷积神经网络CNN是深度学习中最常用的拓扑结构， 相比于传统的FCN(Fully Connected Network), CNN的好处是显而易见的， 在我的理解中， CNN的优势主要在于：
 
-###1， 卷积核共享参数Shared parameters
+<b>1， 卷积核共享参数Shared parameters</b>
 
 可以将卷积网络的卷积核看作是一种共享参数， 在FCN中, 每一个Neuron都对应一个待估参数， 产生庞大的参数群， 使得网络难于converge. 举例来说, AlexNet共有62M待估参数， 其中56M参数都来自于最后一层的全连接层。 如何尽可能避免全连接层， 也成为CNN网络拓扑结构设计中的一个重要目标。
 
-###2， 更好的非线性泛化(generalization)能力
+<b>2， 更好的非线性泛化(generalization)能力</b>
 传统的FCN依靠激活函数提供非线性泛化能力， 在CNN中， 由于卷积操作本身也是一种非线性函数， 因此， CNN也获得了更好的非线性泛化能力， 效率上更易converge， performance也更优。
 
-###3， 倾向于更小的卷积核和更深的网络结构
+<b>3， 倾向于更小的卷积核和更深的网络结构</b>
 
 深层FCN不一定带来更好的泛化能力， 但实证证明， 深层CNN确实能够产生更好的泛化能力。
 
