@@ -208,3 +208,42 @@ def im2col_cython(x, WW, HH, pad, stride):
 
 ### Backward Pass
 
+```python
+def conv_backward_im2col(dout, cache):
+    """
+    A fast implementation of the backward pass for a convolutional layer
+    based on im2col and col2im.
+    """
+    x, w, b, conv_param, x_cols = cache
+    stride, pad = conv_param['stride'], conv_param['pad']
+
+    db = np.sum(dout, axis=(0, 2, 3))
+
+    num_filters, _, filter_height, filter_width = w.shape
+    dout_reshaped = dout.transpose(1, 2, 3, 0).reshape(num_filters, -1)
+    dw = dout_reshaped.dot(x_cols.T).reshape(w.shape)
+
+    dx_cols = w.reshape(num_filters, -1).T.dot(dout_reshaped)
+    # dx = col2im_indices(dx_cols, x.shape, filter_height, filter_width, pad, stride)
+    dx = col2im_cython(dx_cols, x.shape[0], x.shape[1], x.shape[2], x.shape[3],
+                       filter_height, filter_width, pad, stride)
+
+    return dx, dw, db
+```
+
+注意事项：
+如何理解dx_cols 到dx, 即函数 
+
+	dx = col2im_cython(dx_cols, x.shape[0], x.shape[1], x.shape[2], x.shape[3], filter_height, filter_width, pad, stride)
+	
+在dx_cols中，每个x出现了Hw*Ww次， dx需要将他们加在一起。
+
+## 延伸学习
+
+除了卷积层的实现外， CNN还包括了spatial BN层和池化层两个常用layer。可参考：
+
+查看这两个layer的实现。
+
+除此之外， 绝大多数常见的CNN网络都包含了至少一个FC Layer（及其BN）, dropout以及LOSS层：softmax 和hinge loss等， 可参考：
+
+查看FCN网络的各layer的实现。
