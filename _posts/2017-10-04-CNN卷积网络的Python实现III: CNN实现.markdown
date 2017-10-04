@@ -240,10 +240,4 @@ def conv_backward_im2col(dout, cache):
 
 ## 延伸学习
 
-除了卷积层的实现外， CNN还包括了spatial BN层和池化层两个常用layer。可参考：
-
-查看这两个layer的实现。
-
-除此之外， 绝大多数常见的CNN网络都包含了至少一个FC Layer（及其BN）, dropout以及LOSS层：softmax 和hinge loss等， 可参考：
-
-查看FCN网络的各layer的实现。
+除了卷积层的实现外， CNN还包括了spatial BN层和池化层两个常用layer。可参考：本系列第四篇。
