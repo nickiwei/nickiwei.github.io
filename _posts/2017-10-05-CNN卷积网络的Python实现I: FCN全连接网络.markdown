@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "CNN卷积网络的Python实现(一):FCN全连接网络"
+title:      CNN卷积网络的Python实现(一):FCN全连接网络
 date:       2017-10-05 12:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
