@@ -1,3 +1,14 @@
+---
+layout:     post
+title:      CNN卷积网络的Python实现(二):Regularization正则化实现
+date:       2017-10-04 12:01:00
+author:     "nickiwei"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 深度学习
+---
+
+
 ## Regularization 的作用
 深度学习模型同样存在过拟合问题， 为了防止过度拟合， 我们在估计参数, 设计模型, 样本处理时， 均可以设法引入regularization, 抑制过拟合。
 
