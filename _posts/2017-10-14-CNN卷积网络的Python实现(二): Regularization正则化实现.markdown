@@ -274,3 +274,17 @@ def batchnorm_backward(dout, cache):
 ### Drop Layer
 
 DropOut的一种改进，对于深层网络，可以在训练时随机的drop掉某些layer。 
+
+### 共性
+
+所有的Regularization结构在拓扑结构上都存在某种共性， 即：
+
+Step 1, 在训练阶段， 通过引入随机性， 使得训练不能完美匹配。
+
+Step 2, 在测试阶段， 需要Marginalize排除掉这种随机性(求期望等)
+
+## 延伸学习
+
+在本系列 第四篇会介绍 卷积网络对BN的改进算法: Spatial BN
+
+完整的一个深度网络将会在 本系列第五篇实现。
