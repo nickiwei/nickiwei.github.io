@@ -1,3 +1,14 @@
+---
+layout:     post
+title:      CNN卷积网络的Python实现(四):池化和BN层的实现
+date:       2017-10-05 12:01:00
+author:     "nickiwei"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 深度学习
+---
+
+
 本文是《CNN卷积网络的Python实现》系列的第四篇， 在前文实现的FCN和CNN卷积层的基础上， 实现卷积层后常用的spatial BN层和 池化层。
 
 关于BN的作用， 请参见《CNN卷积网络的Python实现I: FCN网络实现》。
