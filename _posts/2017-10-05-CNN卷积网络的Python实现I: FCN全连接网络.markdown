@@ -12,7 +12,7 @@ tags:
 
 *欢迎转载， 转载请注明出处及链接。*
 
-*完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning .部分代码参考了Stanford CS231n 课程作业。*
+*完整代码库请查看我的GithubRepo: <https://github.com/nick6918/MyDeepLearning> .部分代码参考了Stanford CS231n 课程作业。*
 
 ## 为什么要使用神经网络模型
 
@@ -170,7 +170,7 @@ def softmax_loss(x, y):
 
 ## 快速联系作者
 
-欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+欢迎关注我的知乎: <https://www.zhihu.com/people/NickWey> 
 
 
-或直接在Github上联系我: https://github.com/nick6918
+或直接在Github上联系我: <https://github.com/nick6918>
