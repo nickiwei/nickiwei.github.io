@@ -1,6 +1,6 @@
 ---
 layout:     post
-title: Style Transfer: 基于TensorFlow实现
+title: 风格迁移Style Transfer: 基于TensorFlow实现
 date:       2017-09-24 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
@@ -347,7 +347,7 @@ plt.axis('off')
 
 我们来尝试一下经典的starrynight风格的golden gate 金门大桥。
 
-![source3](/img/goldengate.jpeg)
+![source3](/img/GoldenGate.jpeg)
 
 ![source1](/img/result2.png)
 
