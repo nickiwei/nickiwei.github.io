@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      CNN卷积网络的Python实现(一):FCN全连接网络
+title: CNN卷积网络的Python实现(一):FCN全连接网络
 date:       2017-10-05 12:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
@@ -8,11 +8,11 @@ tags:
     - 深度学习
 ---
 
-这个系列从最基础的全连接网络开始， 从零开始实现了一个深度网络模型。本文是该系列的第一篇， 介绍全连接网络的实现。
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第一篇， 介绍全连接网络的实现。
 
 *欢迎转载， 转载请注明出处及链接。*
 
-*本系列中的部分代码来自于Stanford CS231n 课程作业。*
+*完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning. 部分代码参考了Stanford CS231n 课程作业。*
 
 ## 为什么要使用神经网络模型
 
@@ -158,12 +158,16 @@ def softmax_loss(x, y):
 ## 延伸学习
 在实现了全连接层， 激活函数层和Loss层之后， 理论上我们就可以搭建一个最简单的神经网络了。 但这个神经网络有诸多问题， 比如， 
 
-1， 待估参数过多， 非线性泛化能力不足。为此， 我们引入了卷积层。
-
-详见第三篇。
-
-2， 当网络越来越深时， 系统难于converge， 容易过拟合或梯度消失。 为此， 我们引入了多个Regulariztaion层。
+1， 当网络越来越深时， 系统难于converge， 容易过拟合或梯度消失。 为此， 我们引入了多个Regulariztaion层。
 
 详见第二篇。
 
+2， 待估参数过多， 非线性泛化能力不足。为此， 我们引入了卷积层。
 
+详见第三篇。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 或直接在Github上联系我: https://github.com/nick6918
