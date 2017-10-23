@@ -26,7 +26,7 @@ AlexNet在12年大幅提高了ImageNet识别的准确率， 但AlexNet最大的�
 
 Fire Module是SqueezeNet的核心。
 
-	![SqueezeNet](/Img/sn.png)
+![SqueezeNet](/Img/sn.png)
 
 如图， 一个Fire Module是两层卷积层， 第一层卷积使用1\*1的核S1x1个。 第二层使用1\*1核和3\*3核各e1x1 和 e3x3个。
 
