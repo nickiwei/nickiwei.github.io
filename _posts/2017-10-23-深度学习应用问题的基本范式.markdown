@@ -1,0 +1,54 @@
+---
+layout:     post
+title: 深度学习应用问题的基本范式
+date:       2017-09-16 12:01:00
+author:     "nickiwei"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 深度学习
+---
+
+*欢迎转载， 转载请注明出处及链接。*
+
+我们可以总结出一个更泛化的深度学习应用模式， 这几乎涵盖了所有我们希望解决的问题， 不仅仅是我们现在已经遇到的这些问题， 还包括譬如 图像识别领域的RCNN, 非监督学习的GAN, 强化学习的DQN(Q-Learning)(这几个模型， 在之后的文章中都会总结到)， 他们都遵循了如下的范式。
+
+在深度学习中， 我们问题的出发点往往是训练出一个好的label模型能够提取feature， 但我们所能够做的事情远不止label图像， 应用这个模型， 我们可以做更多事情， 而这些问题往往遵循了如下范式
+
+####1,  定义目标， 并为每个目标设计一个合适的Loss
+
+在Image Fooling中， 我们希望生成一个错误标签， 于是直接将错误标签的score作为loss
+
+在Style Transfer中， 我们希望生成的图片与风格图片风格相似， 于是我们经过两层逻辑定义了gram map的l2 loss来衡量风格相似loss
+
+这个loss function可以直接利用某一层feature map + loss function导出， 也可以将feature map作为输入导入另一个模型中， 通过另一个模型计算loss， 如在image captioning问题中， 我们就是将feature map导入了RNN中， 利用label好的caption + feature map训练RNN， 设计的loss（belu score）不仅仅以来feature map.
+
+此外， 深度学习的一个核心思想是 你去定义一个目标， 再去定义一个计算距离当前目标值与理想目标值之间的差距Loss, 而不去关心怎样系统怎样实现这个Loss的优化。
+
+####2,  分析问题， 并在Loss中加入Regularization项
+
+在style loss， 我们不希望相邻像素间差别很大， 所以加入了total variation loss这一项作为regularization.
+
+####3,  基于Loss, 选择合适的梯度上升or下降策略
+
+在image fooling中， 我们希望提高loss， gradient ascent
+
+在style transfer中， 我们希望降低style loss， gradient descent
+
+####4,  选择合适的基模型进行迁移学习
+
+在所有例中， 我们都是用了基于ImageNet训练的SqueezeNet作为基模型进行迁移学习， 我们拿出了他的一层甚至几层layer(style transfer中训练style)的activation map进行训练， 最终与squeezeNet的目标结果（产出图像的label）完全不同的目标， 比如产生错误label， 改变图像style等。
+
+这里选择基模型的一个基本逻辑是， 我们都要求基模型的activation map尽可能好的产出元图像的feature， 如果我们依赖的这一层逻辑改变， 就需要训练别的基模型。
+
+## 结语
+
+深度学习问题的基础是利用CNN卷积网络实现一个image的feature 提取器， 并划分label， 但深度学习的应用绝不仅仅停留在此， 利用这个feature extractor， 我们能实现更多的功能， 而这些功能的实现往往基于上述范式， 我们可以在之后的案例中大量看到该范式反复不断的出现。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: <https://www.zhihu.com/people/NickWey> 
+
+
+或直接在Github上联系我: <https://github.com/nick6918>
