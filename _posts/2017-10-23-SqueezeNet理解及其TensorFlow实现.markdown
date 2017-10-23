@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: SqueezeNet理解及其TensorFlow实现
-date:       2017-09-25 12:01:00
+date:       2017-09-18 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
