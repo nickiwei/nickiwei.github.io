@@ -1,12 +1,11 @@
 ---
 layout:     post
-title: 风格迁移Style Transfer: 基于TensorFlow实现
-date:       2017-09-24 12:01:00
+title: 风格迁移StyleTransfer(基于TensorFlow实现)
+date:       2017-09-15 13:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 深度学习
-    - TensorFlow
 ---
 
 *欢迎转载， 转载请注明出处及链接。*
@@ -27,7 +26,7 @@ PS, 我们将继续使用基于ImageNet训练的SqueezeNet作为base CNN, 它能
 
 Content Loss衡量content activation map与原始content image之间的差别， 如下：
 
-![style](/img/contentloss.png)
+![style](/img/contentLoss.png)
 
 其中， Fl是第l层layer的activation map， p是source image的feature map， 我们计算二者差别的l2 loss, wc是一个decay标量。
 
