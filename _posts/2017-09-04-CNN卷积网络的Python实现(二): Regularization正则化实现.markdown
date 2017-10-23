@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: CNN卷积网络的Python实现(二):Regularization正则化实现
-date:       2017-10-04 12:01:00
+date:       2017-09-04 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
