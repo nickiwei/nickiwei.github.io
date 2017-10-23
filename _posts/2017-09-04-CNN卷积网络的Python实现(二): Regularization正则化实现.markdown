@@ -8,18 +8,18 @@ tags:
     - 深度学习
 ---
 
-* 这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第二篇， 介绍正则化的原理及实现。*
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第二篇， 介绍正则化的原理及实现。
 
-* 欢迎转载， 转载请注明出处及链接。*
+*欢迎转载， 转载请注明出处及链接。*
 
-* 完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning. 部分代码参考了Stanford CS231n 课程作业。*
+*完整代码库请查看我的GithubRepo: <https://github.com/nick6918/MyDeepLearning>. 部分代码参考了Stanford CS231n 课程作业。*
 
 ## Regularization 的作用
 深度学习模型同样存在过拟合问题， 为了防止过度拟合， 我们在估计参数, 设计模型, 样本处理时， 均可以设法引入regularization, 抑制过拟合。
 
 在参数估计时， 常使用L2 Regualization, 即
 
-![L2Reg](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/l2r.gif)
+![L2Reg](/img/l2r.gif)
 
 除此之外， 还有L1和smooth L1-L2拟合(beta*L2+L1)
 
@@ -31,11 +31,11 @@ tags:
 
 我们知道， 当待估参数过多， 模型较复杂且训练样本较少时， 容易产生过拟合现象。如图， 之所以dropout可以抑制overfitting, 是因为在训练阶段， 我们引入了随机性(随机cancel一些Neuron), 在测试阶段， 我们去除掉随机性， 并通过期望的方式应用测试数据。
 
-![dropout](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/DO.png)
+![dropout](/img/DO.png)
 
 为了简化计算， 我们考虑一个只有两个Neuron的神经网络， 且任意一个Neuron在训练阶段被dropout的概率为1/2， 在测试阶段不dropout.
 
-![dropout_Calculation](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/et.png)
+![dropout_Calculation](/img/et.png)
 
 可见， 测试数据的最终期望与训练数据的最终期望， 相差一个概率p.为了保证测试数据的一致性， 我们在训练数据的最后除以一个p， 这被称为反向DropOut.
 
@@ -110,7 +110,7 @@ def dropout_backward(dout, cache):
 
 为了解决这个问题，我们引入了BatchNormalization.
 
-![BN](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/bn.png)
+![BN](/img/bn.png)
 
 ### 如何理解BN
 
@@ -127,7 +127,7 @@ def dropout_backward(dout, cache):
 Forward pass就是逐个实现上述四个公式， 但为了便于求梯度， 我们用CG(Computation Graph)的形式细化上述四个公式。
 
 
-![BN_CG](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/xhat.png)
+![BN_CG](/img/xhat.png)
 
 如上图， 我们计算出了xhat， 最终的输出out = gamma*xhat + beta, 代码如下:
 
@@ -298,7 +298,7 @@ Step 2, 在测试阶段， 需要Marginalize排除掉这种随机性(求期望�
 
 ## 快速联系作者
 
-欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+欢迎关注我的知乎: <https://www.zhihu.com/people/NickWey> 
 
 
-或直接在Github上联系我: https://github.com/nick6918
+或直接在Github上联系我: <https://github.com/nick6918>
