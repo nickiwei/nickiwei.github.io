@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: CNN卷积网络的Python实现(四):池化和BN层的实现
-date:       2017-10-05 12:01:00
+date:       2017-09-11 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
