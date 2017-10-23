@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: CNN卷积网络的Python实现(三):卷积网络实现
-date:       2017-10-04 12:00:00
+date:       2017-09-07 12:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
