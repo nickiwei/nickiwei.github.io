@@ -130,7 +130,7 @@ show_saliency_maps(X, y, mask)
 
 在ImageNet中，我们可以得到以下的结果：
  
-![saliency](/Img/slm.png)
+![saliency](/img/slm.png)
 
 可以看到， 大致上saliency map找到了object 所在的关键部分， 可以把saliency map当作是segmentation的一种非监督方法， 但精度和performance都不高就是了。
 
@@ -144,7 +144,7 @@ losses = tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(model.labels,
 ```
 在本例中， 我们直接使用了基于正确分类score的L2 Loss, 这个loss乍一看可能有一些困惑， 其实我们也可以使用一般的softmax cross entropy loss， 在替换loss后， 我们得到了如下结果
 
-![saliency](/Img/1211.png)
+![saliency](/img/1211.png)
 
 与原结果基本相似， 但仔细查看会注意到以下几点：
 
@@ -258,7 +258,7 @@ show_image_fooling(Xi, X_fooling)
 
 最终结果如下：
 
-![imageFooling](/Img/IMGfOOL.png)
+![imageFooling](/img/IMGfOOL.png)
 
 ## Deep Dream: Amplify existing features
 
@@ -342,16 +342,16 @@ out = create_class_visualization(target_y,model,num_iterations=200)
 ```
 任选一个类型， 开始测试， 结果如下：
 
-![imageFoolingdata](/Img/6.png)
-![imageFooling1](/Img/1.png)
-![imageFooling2](/Img/2.png)
-![imageFooling3](/Img/3.png)
-![imageFooling4](/Img/4.png)
-![imageFooling5](/Img/5.png)
+![imageFoolingdata](/img/6.png)
+![imageFooling1](/img/1.png)
+![imageFooling2](/img/2.png)
+![imageFooling3](/img/3.png)
+![imageFooling4](/img/4.png)
+![imageFooling5](/img/5.png)
 
 可以看出， 在60多iteration左右， 目标label已经是score最高的label了， 从图像中， 我们可以隐约看出几个猩猩头。 在Google 博客中， 我们看一看到一些经过调优以后的最终效果，如下：
 
-![imageFooling6](/Img/ddper.png)
+![imageFooling6](/img/ddper.png)
 
 ## 结语
 
