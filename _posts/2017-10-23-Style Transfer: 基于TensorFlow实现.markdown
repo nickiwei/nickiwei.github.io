@@ -6,6 +6,7 @@ author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 深度学习
+    - TensorFlow
 ---
 
 *欢迎转载， 转载请注明出处及链接。*
