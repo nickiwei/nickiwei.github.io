@@ -8,10 +8,12 @@ tags:
     - 深度学习
 ---
 
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第三篇， 在简要说明为什么要引入卷积网络之后， 利用Numpy 实现了naive版本的卷积网络的forward pass核backward pass， 并介绍了快速卷积网络的实现。
 
-在简要说明为什么要引入卷积网络之后， 利用Numpy 实现了naive版本的卷积网络的forward pass核backward pass， 并介绍了快速卷积网络的实现。
+*欢迎转载， 转载请注明出处及链接。*
 
-*本文中的部分代码来自于Stanford CS231n 课程作业。*
+*完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning .部分代码参考了Stanford CS231n 课程作业。*
+
 
 
 ## 卷积网络的优势
@@ -37,7 +39,7 @@ tags:
 
 Forward Pass中最重要的就是理解， 结果tensor与原tensor的对应关系。如下图：
 
-[图片]
+![forward](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/cnn1.png)
 
 这个我就不多解释了， 如果理解有困难， 可自行查看一些资料。下面上代码：
 
