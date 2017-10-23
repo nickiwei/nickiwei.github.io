@@ -1,6 +1,6 @@
 ---
 layout:     post
-title: 机器学习算法原理及其Python实现(一): KNN,决策树与朴素贝叶斯
+title: 机器学习算法原理及其Python实现(一):KNN,决策树与朴素贝叶斯
 date:       2017-05-01 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
@@ -25,12 +25,14 @@ tags:
 ## k邻近KNN
 
 ### 基本特性
+
 * 优点： 精确度高， 不需训练数据， 对异常值不敏感， 无数据输入假定
 * 缺点： 时空复杂度均高
 * 使用数据： 连续型， 离散型
 
 
 ### 算法概述
+
 对每个数据
 
 1, 计算数据与所有训练数据的距离
@@ -64,6 +66,7 @@ def kNearestNeighbor_classifier(vector, data, labels, k=1):
 ```
 
 ### 要点
+
 数据需要正则化(Normalize)， 以消除不同数据绝对值差异对距离计算的影响。
 
 ```python
@@ -75,17 +78,20 @@ def autoNorm(data):
 ```
 
 ### 备注
+
 1， k决策树是k邻近的直接优化。
 
 2， 在此阶段， 我们对于测试数据的取得仍未按比例， 未使用cross_validation.
  
 ### 缺失值处理
+
 -> 默认值法:
 均值或-1
 
 ## K决策树
 
 ### 算法概述: ID3算法
+
 1， 计算每个标签的香农商， 选择香农商的信息增益最大的
 
 InfoGain(feature i) = baseEntrophy - Sigma(p(featureValue)*entropy(remainData))
@@ -95,6 +101,7 @@ InfoGain(feature i) = baseEntrophy - Sigma(p(featureValue)*entropy(remainData))
 3， 递归， 递归的终点是数据集中的数据均属于同一标签 或 无feature可用
 
 ### 核心算法
+
 * 算法trariner
 
 ```python
@@ -164,6 +171,7 @@ def chooseBestFeatureToSplit(data):
 ```
 
 ### 要点
+
 1， 连续型数据需要离散化， 但即使离散化， 如果存在太多特征划分， 仍容易产生过拟合等其他问题。
 
 2, 当无feature可用时， 利用最大频率法求得本组使用的label.
@@ -186,6 +194,7 @@ def majorityCount(data):
 ```
 
 ### 缺失值处理
+
 1， 选择特征时
 平均值法： 在计算feature a的信息增益时， 若某数据feature a缺失， 则去掉数据求信息增益。 然后给最终结果乘以 n-1/n
 
