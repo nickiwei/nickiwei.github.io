@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      CNN卷积网络的Python实现(四):池化和BN层的实现
+title: CNN卷积网络的Python实现(四):池化和BN层的实现
 date:       2017-10-05 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
@@ -8,8 +8,11 @@ tags:
     - 深度学习
 ---
 
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第四篇， 在前文实现的FCN和CNN卷积层的基础上， 实现卷积层后常用的spatial BN层和 池化层。
 
-本文是《CNN卷积网络的Python实现》系列的第四篇， 在前文实现的FCN和CNN卷积层的基础上， 实现卷积层后常用的spatial BN层和 池化层。
+*欢迎转载， 转载请注明出处及链接。*
+
+*完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning .部分代码参考了Stanford CS231n 课程作业。*
 
 关于BN的作用， 请参见《CNN卷积网络的Python实现I: FCN网络实现》。
 
@@ -225,3 +228,12 @@ def spatial_batchnorm_backward(dout, cache):
 
 ## 延伸学习
 以上四篇， 我们介绍了所有常用的深度网络layer, 下一篇我们将详细介绍如何搭建和fine-tune一个深度CNN网路。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+
+
+或直接在Github上联系我: https://github.com/nick6918
