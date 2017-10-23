@@ -31,7 +31,7 @@ tags:
 
 我们知道， 当待估参数过多， 模型较复杂且训练样本较少时， 容易产生过拟合现象。如图， 之所以dropout可以抑制overfitting, 是因为在训练阶段， 我们引入了随机性(随机cancel一些Neuron), 在测试阶段， 我们去除掉随机性， 并通过期望的方式应用测试数据。
 
-![dropout](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/Ra*bL2T1CvUqCf12xGhmqVW2DeX9.Iihi3QL75JhzAU!/b/dE0AAAAAAAAA&bo=RQaAAgAAAAADAOQ!&rf=viewer_4&t=5)
+![dropout](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/DO.png)
 
 为了简化计算， 我们考虑一个只有两个Neuron的神经网络， 且任意一个Neuron在训练阶段被dropout的概率为1/2， 在测试阶段不dropout.
 
