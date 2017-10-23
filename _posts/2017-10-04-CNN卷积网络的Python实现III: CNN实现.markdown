@@ -243,3 +243,13 @@ def conv_backward_im2col(dout, cache):
 ## 延伸学习
 
 除了卷积层的实现外， CNN还包括了spatial BN层和池化层两个常用layer。可参考：本系列第四篇。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+
+
+或直接在Github上联系我: https://github.com/nick6918
+
