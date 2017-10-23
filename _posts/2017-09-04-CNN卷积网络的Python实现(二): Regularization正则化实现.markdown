@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      CNN卷积网络的Python实现(二):Regularization正则化实现
+title: CNN卷积网络的Python实现(二):Regularization正则化实现
 date:       2017-10-04 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
@@ -8,13 +8,18 @@ tags:
     - 深度学习
 ---
 
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第二篇， 介绍正则化的原理及实现。
+
+欢迎转载， 转载请注明出处及链接。
+
+完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning. 部分代码参考了Stanford CS231n 课程作业。
 
 ## Regularization 的作用
 深度学习模型同样存在过拟合问题， 为了防止过度拟合， 我们在估计参数, 设计模型, 样本处理时， 均可以设法引入regularization, 抑制过拟合。
 
 在参数估计时， 常使用L2 Regualization, 即
 
-![L2Reg](/Users/fandingwei/Desktop/picforblog/l2r.gif)
+![L2Reg](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/Pguor0BqnjXBxC0G156fwFyyhFZhvkvDV8cdwAb2EtU!/b/dDwBAAAAAAAA&bo=cgA4AAAAAAABAWw!&rf=viewer_4&t=5)
 
 除此之外， 还有L1和smooth L1-L2拟合(beta*L2+L1)
 
@@ -26,11 +31,11 @@ tags:
 
 我们知道， 当待估参数过多， 模型较复杂且训练样本较少时， 容易产生过拟合现象。如图， 之所以dropout可以抑制overfitting, 是因为在训练阶段， 我们引入了随机性(随机cancel一些Neuron), 在测试阶段， 我们去除掉随机性， 并通过期望的方式应用测试数据。
 
-![dropout](/Users/fandingwei/Desktop/picforblog/DO.png)
+![dropout](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/Ra*bL2T1CvUqCf12xGhmqVW2DeX9.Iihi3QL75JhzAU!/b/dE0AAAAAAAAA&bo=RQaAAgAAAAADAOQ!&rf=viewer_4&t=5)
 
 为了简化计算， 我们考虑一个只有两个Neuron的神经网络， 且任意一个Neuron在训练阶段被dropout的概率为1/2， 在测试阶段不dropout.
 
-![dropout_Calculation](/Users/fandingwei/Desktop/picforblog/et.png)
+![dropout_Calculation](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/WXLsY1L46OKYNcbkjwUf46r16DkL0V3qlTNVYbWcvxU!/b/dDwBAAAAAAAA&bo=agOAAgAAAAADAM4!&rf=viewer_4&t=5)
 
 可见， 测试数据的最终期望与训练数据的最终期望， 相差一个概率p.为了保证测试数据的一致性， 我们在训练数据的最后除以一个p， 这被称为反向DropOut.
 
@@ -105,7 +110,7 @@ def dropout_backward(dout, cache):
 
 为了解决这个问题，我们引入了BatchNormalization.
 
-![BN](/Users/fandingwei/Desktop/picforblog/bn.png)
+![BN](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/tJDYc*i63Lun8l0UHaZmvtgT5NLLWyGeQlnfBX2wtL8!/b/dHYBAAAAAAAA&bo=nwOAAgAAAAADADs!&rf=viewer_4&t=5)
 
 ### 如何理解BN
 
@@ -122,7 +127,7 @@ def dropout_backward(dout, cache):
 Forward pass就是逐个实现上述四个公式， 但为了便于求梯度， 我们用CG(Computation Graph)的形式细化上述四个公式。
 
 
-![BN_CG](/Users/fandingwei/Desktop/picforblog/xhat.png)
+![BN_CG](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/MGYJJrB5gfJ*BILFigxutn7gEHbQ0x*cjaKcoffnbB4!/b/dHYBAAAAAAAA&bo=7AaaAQAAAAADAFQ!&rf=viewer_4&t=5)
 
 如上图， 我们计算出了xhat， 最终的输出out = gamma*xhat + beta, 代码如下:
 
@@ -288,3 +293,12 @@ Step 2, 在测试阶段， 需要Marginalize排除掉这种随机性(求期望�
 在本系列 第四篇会介绍 卷积网络对BN的改进算法: Spatial BN
 
 完整的一个深度网络将会在 本系列第五篇实现。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+
+
+或直接在Github上联系我: https://github.com/nick6918
