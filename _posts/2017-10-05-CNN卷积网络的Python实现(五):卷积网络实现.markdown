@@ -8,8 +8,14 @@ tags:
     - 深度学习
 ---
 
+这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第五篇， 介绍卷积网络的实现。
+
+*欢迎转载， 转载请注明出处及链接。*
+
+*完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning .部分代码参考了Stanford CS231n 课程作业。*
+
 常见的卷积网路如图所示
-![architecture](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/dlarch.jpeg)
+![architecture](/img/dlarch.jpeg)
 
 本文将搭建一个简单的三层卷积网络， 然后实现一个基本的Solver. 在实际的框架中， 仅model及其tuning是需要手动实现的， 其余均已自动化，但这里，我们还是会手动实现一个solver 以及手动计算相应梯度。
 
@@ -31,7 +37,7 @@ train()方法是核心的训练算法， train方法会call \_step()方法， �
 
 checkaccuracy()中， 我们将测试数据导入测试当前模型的训练成果。
 
-读者可直接阅读代码库中的/lib/solvers/solver.py文件， 了解solver的实现。Link: https://github.com/nick6918/MyDeepLearning/blob/master/lib/solvers/solver.py
+读者可直接阅读代码库中的/lib/solvers/solver.py文件， 了解solver的实现。Link: <https://github.com/nick6918/MyDeepLearning/blob/master/lib/solvers/solver.py>
 
 代码虽然较多， 但注释充分， 读者可自行理解一下。
 
@@ -311,7 +317,7 @@ for param_name in sorted(grads):
 
 对于一个小的数据集， 一个正确编写的深度模型， 往往可以很快的实现overfit, 即接近100%的training set的正确率。 但由于数据集很小， validation set的正确率往往很低， 形成非常明显的Overfitting, 这说明了你的模型编写是正确的。如下图:
 
-![OverfittingSmallData](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/OverfitSmallData.png)
+![OverfittingSmallData](/img/OverfitSmallData.png)
 
 可见， trainning accuracy 达到了100%, 但validation accuracy低于20%, 说明模型编写正确。
 
@@ -357,9 +363,9 @@ plt.show()
 
 以下为CIFAR-10的5000张图在三层卷积网络下的训练结果（默认参数, dropout possiblity = 0.55），正常模型， 带BN模型， 带BN+DropOut模型。
 
-![res1](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/tresWoReg.png)
-![res2](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/resWithBN.png)
-![res3](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/resWithBNDO.png)
+![res1](/img/tresWoReg.png)
+![res2](/img/resWithBN.png)
+![res3](/img/resWithBNDO.png)
 
 可见：
 1， BN的加入， 大大提高了训练集估计的准确率， 略微提高了验证集的准确率。
@@ -373,3 +379,13 @@ plt.show()
 通过这个系列的五篇文章， 我们从零开始用Python/Numpy实现了一个卷积网络。 在实际的工程中， 可能更多的还是使用Tensorflow等框架， 但自己实现一遍之后， 对整个模型的算法原理， 实现要点及工程技巧都有了更深刻的认识。
 
 接下来， 我还会在此基础上， 实现更多的DL算法。
+
+---
+
+## 快速联系作者
+
+欢迎关注我的知乎: <https://www.zhihu.com/people/NickWey> 
+
+
+或直接在Github上联系我: <https://github.com/nick6918>
+
