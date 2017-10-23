@@ -1,6 +1,6 @@
 ---
 layout:     post
-title: 机器学习算法原理及其Python实现(一): KNN, 决策树与朴素贝叶斯
+title: 机器学习算法原理及其Python实现(一): KNN,决策树与朴素贝叶斯
 date:       2017-05-01 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
