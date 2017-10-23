@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: 风格迁移StyleTransfer(基于TensorFlow实现)
-date:       2017-09-15 13:00:00
+date:       2017-09-24 13:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
