@@ -14,7 +14,7 @@ tags:
 
 在深度学习中， 我们问题的出发点往往是训练出一个好的label模型能够提取feature， 但我们所能够做的事情远不止label图像， 应用这个模型， 我们可以做更多事情， 而这些问题往往遵循了如下范式
 
-####1,  定义目标， 并为每个目标设计一个合适的Loss
+### 1,  定义目标， 并为每个目标设计一个合适的Loss
 
 在Image Fooling中， 我们希望生成一个错误标签， 于是直接将错误标签的score作为loss
 
@@ -24,17 +24,17 @@ tags:
 
 此外， 深度学习的一个核心思想是 你去定义一个目标， 再去定义一个计算距离当前目标值与理想目标值之间的差距Loss, 而不去关心怎样系统怎样实现这个Loss的优化。
 
-####2,  分析问题， 并在Loss中加入Regularization项
+### 2,  分析问题， 并在Loss中加入Regularization项
 
 在style loss， 我们不希望相邻像素间差别很大， 所以加入了total variation loss这一项作为regularization.
 
-####3,  基于Loss, 选择合适的梯度上升or下降策略
+### 3,  基于Loss, 选择合适的梯度上升or下降策略
 
 在image fooling中， 我们希望提高loss， gradient ascent
 
 在style transfer中， 我们希望降低style loss， gradient descent
 
-####4,  选择合适的基模型进行迁移学习
+### 4,  选择合适的基模型进行迁移学习
 
 在所有例中， 我们都是用了基于ImageNet训练的SqueezeNet作为基模型进行迁移学习， 我们拿出了他的一层甚至几层layer(style transfer中训练style)的activation map进行训练， 最终与squeezeNet的目标结果（产出图像的label）完全不同的目标， 比如产生错误label， 改变图像style等。
 
