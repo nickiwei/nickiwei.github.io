@@ -19,7 +19,7 @@ tags:
 
 在参数估计时， 常使用L2 Regualization, 即
 
-![L2Reg](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/Pguor0BqnjXBxC0G156fwFyyhFZhvkvDV8cdwAb2EtU!/b/dDwBAAAAAAAA&bo=cgA4AAAAAAABAWw!&rf=viewer_4&t=5)
+![L2Reg](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/l2r.gif)
 
 除此之外， 还有L1和smooth L1-L2拟合(beta*L2+L1)
 
@@ -35,7 +35,7 @@ tags:
 
 为了简化计算， 我们考虑一个只有两个Neuron的神经网络， 且任意一个Neuron在训练阶段被dropout的概率为1/2， 在测试阶段不dropout.
 
-![dropout_Calculation](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/WXLsY1L46OKYNcbkjwUf46r16DkL0V3qlTNVYbWcvxU!/b/dDwBAAAAAAAA&bo=agOAAgAAAAADAM4!&rf=viewer_4&t=5)
+![dropout_Calculation](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/et.png)
 
 可见， 测试数据的最终期望与训练数据的最终期望， 相差一个概率p.为了保证测试数据的一致性， 我们在训练数据的最后除以一个p， 这被称为反向DropOut.
 
@@ -110,7 +110,7 @@ def dropout_backward(dout, cache):
 
 为了解决这个问题，我们引入了BatchNormalization.
 
-![BN](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/tJDYc*i63Lun8l0UHaZmvtgT5NLLWyGeQlnfBX2wtL8!/b/dHYBAAAAAAAA&bo=nwOAAgAAAAADADs!&rf=viewer_4&t=5)
+![BN](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/bn.png)
 
 ### 如何理解BN
 
@@ -127,7 +127,7 @@ def dropout_backward(dout, cache):
 Forward pass就是逐个实现上述四个公式， 但为了便于求梯度， 我们用CG(Computation Graph)的形式细化上述四个公式。
 
 
-![BN_CG](http://a3.qpic.cn/psb?/V14QIlwE1OZqS0/MGYJJrB5gfJ*BILFigxutn7gEHbQ0x*cjaKcoffnbB4!/b/dHYBAAAAAAAA&bo=7AaaAQAAAAADAFQ!&rf=viewer_4&t=5)
+![BN_CG](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/xhat.png)
 
 如上图， 我们计算出了xhat， 最终的输出out = gamma*xhat + beta, 代码如下:
 
