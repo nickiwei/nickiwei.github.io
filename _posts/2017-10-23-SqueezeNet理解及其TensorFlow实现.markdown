@@ -26,7 +26,7 @@ AlexNet在12年大幅提高了ImageNet识别的准确率， 但AlexNet最大的�
 
 Fire Module是SqueezeNet的核心。
 
-![SqueezeNet](/Img/sn.png)
+![SqueezeNet](/img/sn.png)
 
 如图， 一个Fire Module是两层卷积层， 第一层卷积使用1\*1的核S1x1个。 第二层使用1\*1核和3\*3核各e1x1 和 e3x3个。
 
@@ -73,7 +73,7 @@ def fire_module(x,inp,sp,e11p,e33p):
 
 ## 完整Architecture
 
-![SqueezeNetArchitecture](/Img/sqarc.png)
+![SqueezeNetArchitecture](/img/sqarc.png)
 
 如图， 基本的SqueezeNet在一个卷积层后跟了8个fireModule, 最后又是一个卷积。
 改进的SqueezeNet还增加了Fast Pass.
@@ -184,9 +184,9 @@ class SqueezeNet(object):
 
 ## SqueezeNet Performance
 
-![SqueezeNetP1](/Img/sq.png)
+![SqueezeNetP1](/img/sq.png)
 
-![SqueezeNetP1](/Img/sqmore.png)
+![SqueezeNetP1](/img/sqmore.png)
 
 详细的performance细节及测试请查看论文。 这里简单的列一些核心结论， 由FIGURE 3可见， Squeeze使用了1/3的核参数的前提下， 基本保持了80%以上的accuracy， 且fast pass能略微提高准确率， complex fast pass则效果不明显。
 
