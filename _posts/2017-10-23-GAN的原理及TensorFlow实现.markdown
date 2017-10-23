@@ -32,7 +32,7 @@ GAN的基本原理来自于我们之前提到的Image Fooling思想， 我可以
 ```
 
 为此，我们遵循深度学习问题的一般范式（具体请查看我的这篇博客），首先，构造如下Loss:
-![loss](/img/loss3.png)
+![loss](/img/LOSS3.png)
 
 其次， 为该Loss选择合适的梯度上升or下降策略：
 
