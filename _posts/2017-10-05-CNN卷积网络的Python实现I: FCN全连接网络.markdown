@@ -107,7 +107,7 @@ def relu_backward(dout, cache):
 
 ### Hinge Loss
 
-![Hinge Loss](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/hinge.gif)
+![Hinge Loss](img/hinge.gif)
 
 其中， delta为噪音容限， 通常取1即可。
 
@@ -136,7 +136,7 @@ def svm_loss(x, y):
 
 ### Softmax Loss
 
-![Softmax](https://github.com/nickiwei/nickiwei.github.io/blob/master/img/softmax.gif)
+![Softmax](img/softmax.gif)
 
 ```python
 def softmax_loss(x, y):
