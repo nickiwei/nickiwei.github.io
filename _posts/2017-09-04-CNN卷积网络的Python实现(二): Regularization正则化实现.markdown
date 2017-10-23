@@ -8,11 +8,11 @@ tags:
     - 深度学习
 ---
 
-这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第二篇， 介绍正则化的原理及实现。
+* 这个系列从最基础的全连接网络开始， 从零开始实现包含CNN, RNN等在内的深度网络模型。本文是该系列的第二篇， 介绍正则化的原理及实现。*
 
-欢迎转载， 转载请注明出处及链接。
+* 欢迎转载， 转载请注明出处及链接。*
 
-完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning. 部分代码参考了Stanford CS231n 课程作业。
+* 完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyDeepLearning. 部分代码参考了Stanford CS231n 课程作业。*
 
 ## Regularization 的作用
 深度学习模型同样存在过拟合问题， 为了防止过度拟合， 我们在估计参数, 设计模型, 样本处理时， 均可以设法引入regularization, 抑制过拟合。
