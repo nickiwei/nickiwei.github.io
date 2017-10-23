@@ -136,7 +136,7 @@ def svm_loss(x, y):
 
 ### Softmax Loss
 
-![Softmax】(http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/q5kHF4J.TUvHilkQ*7RXRtD8EqySngXN9TyAaRFbDRQ!/b/dGwBAAAAAAAA&bo=cwAuAAAAAAABAXs!&rf=viewer_4&t=5)
+![Softmax](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/q5kHF4J.TUvHilkQ*7RXRtD8EqySngXN9TyAaRFbDRQ!/b/dGwBAAAAAAAA&bo=cwAuAAAAAAABAXs!&rf=viewer_4&t=5)
 
 ```python
 def softmax_loss(x, y):
@@ -171,5 +171,6 @@ def softmax_loss(x, y):
 ## 快速联系作者
 
 欢迎关注我的知乎: https://www.zhihu.com/people/NickWey 
+
 
 或直接在Github上联系我: https://github.com/nick6918
