@@ -107,7 +107,7 @@ def relu_backward(dout, cache):
 
 ### Hinge Loss
 
-![Hinge Loss](/Users/fandingwei/Downloads/CodeCogsEqn (1).gif)
+![Hinge Loss](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/d66VSMrgoTvfyLYHwvNoJWMprdvwhRb7soYS.l4ktdg!/b/dOIAAAAAAAAA&bo=BQE1AAAAAAABARc!&rf=viewer_4&t=5)
 
 其中， delta为噪音容限， 通常取1即可。
 
@@ -136,7 +136,7 @@ def svm_loss(x, y):
 
 ### Softmax Loss
 
-![Softmax](/Users/fandingwei/Downloads/CodeCogsEqn (2).gif)
+![Softmax](http://a2.qpic.cn/psb?/V14QIlwE1OZqS0/q5kHF4J.TUvHilkQ*7RXRtD8EqySngXN9TyAaRFbDRQ!/b/dGwBAAAAAAAA&bo=cwAuAAAAAAABAXs!&rf=viewer_4&t=5)
 
 ```python
 def softmax_loss(x, y):
