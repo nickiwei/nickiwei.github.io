@@ -293,7 +293,7 @@ def loss(self, features, captions):
 
 ### 梯度爆炸or 梯度消失
 
-![h0_Cal](/Img/h0gre.png)
+![h0_Cal](/img/h0gre.png)
 
 在求h0 or x1等的梯度时， 需要与W多次相乘， 容易引起梯度爆炸or消失。
 
@@ -305,13 +305,13 @@ def loss(self, features, captions):
 
 ## LSTM layer的实现
 
-![LSTM](/Img/lstm.png)
+![LSTM](/img/lstm.png)
 
 可见， 每个x和h梯度的求取， 都可以通过当前c的梯度得到， 且c的梯度只与下一个c有关。
 
 下图详细介绍了LSTM的具体计算：
 
-![LSTM_CAL](/Img/lstm_cal.png)
+![LSTM_CAL](/img/lstm_cal.png)
 
 基于上述计算， 我们实现LSTM layer， 与RNN一致， 我们首先实现一个lstm_step layer
 
