@@ -66,21 +66,21 @@ DCGAN的核心问题在于：判别器训练得太好，生成器梯度消失，
 
 我们的目标转化为优化Pr, Pg使得W最小。 经过化简（具体查看论文）， 这一公式转化为
 
-![WGAN](/Users/fandingwei/Desktop/lwgan.png)
+![WGAN](/img/lwgan.png)
 
 其中， fw是一个数学上可求的复杂距离公式， 我们希望再用一个神经网络来拟合他。 这是WGAN最精髓的地方， 我们希望用一个神经网络来拟合分布之间的距离， 然后再用一个神经网络来优化这个神经网络构成的距离。
 
 注意， 我们所做的这些的核心都在于， 将G(z)视为常量的情况下， 去优化Disciminator. 具体算法如下： 
 
-![WGAN](/Users/fandingwei/Desktop/wganalg.jpg)
+![WGAN](/img/wganalg.jpg)
 
 对比GAN的训练算法
 
-![WGAN](/Users/fandingwei/Desktop/gan.png)
+![WGAN](/img/gan.png)
 
 可见， 之前我们训练GAN时， 每个iteration训练k次Disciminator(通常为1)， 1次Generator. 现在， 每个iteration，我们训练 Ncritic 次Discriminator, 且之前对discrimator的训练为沿D\_loss下降， 现在我们对D_loss本身也需要梯度下降。
 
-![WGAN](/Users/fandingwei/Desktop/gradwgan.png)
+![WGAN](/img/gradwgan.png)
 
 我们将w沿着梯度更新后的值作为梯度去更新w。
 
