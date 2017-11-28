@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title: paddlepaddle深度学习实战(一):浅层模型的搭建
