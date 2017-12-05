@@ -1,6 +1,6 @@
 ---
 layout:     post
-title: paddlepaddle深度学习实战(三):利用经典深层模型完成CIFAR-10分类任务
+title: paddlepaddle深度学习实战(二):利用经典深层模型完成CIFAR-10分类任务
 date:       2017-11-28 12:03:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
