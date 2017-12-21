@@ -65,7 +65,7 @@ WordNet包含在Python自然语言处理的核心库nltk中， 首先确保你�
 
 word2vec词向量的核心idea是， 我们希望把一个词作为已出现的词， 他周边的词出现在其周边的概率，如下图：
 	
-![w2v](/Users/weifanding/Desktop/222.jpg)
+![w2v](/img/222.jpg)
 
 由此， 我们可以容易的得到如下的loss function:
 
@@ -73,17 +73,17 @@ word2vec词向量的核心idea是， 我们希望把一个词作为已出现的�
 	
 对所有词而言， 总的loss为:
 
-![w2v](/Users/weifanding/Desktop/c2c.jpg)
+![w2v](/img/c2c.jpg)
 
 我们使用两个词向量的内积作为其出现的可能性表示， 由于词存在两种不同的出现形式（中性词和窗口词）， 我们为每个词定义两组词向量。由此， 我们就可以引入word2vec的经典训练算法， skip-gram.
 
-![w2v](/Users/weifanding/Desktop/skipgram.png)
+![w2v](/img/skipgram.png)
 
 在skipgram中， 我们最终将所有窗口词的loss相加， 构成总loss. 我们也可以将所有预测词向量相加， 直接与输出矩阵做内积得到。这种方案被称为 CBOW(Continuous Bag of Words).
 
 在最终loss function的计算上， 除了基本的softmax cross-entropy外， 还可以使用改进版的Negative Sampling, 它被证实在word2vec上可以得到更好的训练结果。
 
-![w2v](/Users/weifanding/Desktop/nlp.jpg)
+![w2v](/img/nlp.jpg)
 
 # Word2Vec的实现
 
@@ -159,7 +159,7 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
 
 对比一下， CBOW将所有窗口词的inputVectors相加， 与中心词的outputVectors做卷积，输出梯度， 每个窗口词的inputVector梯度都被更新（包括中心词）， 而只有中心词的outVectors被更新。因为只做一次卷积， 所以cost也只有一个。 对比而言， Skip-gram要完成n个卷积， 每次卷积都是一个窗口词和中心词卷积， 中心词累积n个input梯度，每次迭代都有一个窗口词被更新梯度， cost也累加n次。总结如下图:
 
-![grad](/Users/weifanding/Desktop/grad.jpg)
+![grad](/img/grad.jpg)
 
 可以看出， 相比Skip-Gram， CBOW只完成一次卷积， 却同时更新了三组数据， 效率更高些。在实际应用中， CBOW也确实更常见些， 但二者的性能差异并不显著。特别注意， 窗口词的OutputVector是<b>n个一起</b>增加一次。
 
@@ -214,12 +214,12 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
 
 Word2Vec本质上是在估计词共现的概率， 提到概率， 我们自然就想到了频率。 我们可以直接利用词共现的频率来做词表达， 在解决维度爆炸问题上， 可以使用SVD做主成分分析， 进行降维。
 
-![w2v](/Users/weifanding/Desktop/glove.jpg)
+![w2v](/img/glove.jpg)
 
 但这种方法最大的问题是词矩阵训练算法受词个数影响， 难于scale. Glove将静态的词频统计和动态的词向量学习结合在一起， 解决了词频类算法的维度爆炸问题。Glove的具体细节， 可参考： [GloVe: Global Vectors for Word Representa:on (Pennington et al. (2014)](https://nlp.stanford.edu/pubs/glove.pdf)
 
 Glove的loss function:
 
-![w2v](/Users/weifanding/Desktop/glove2.jpg)
+![w2v](/img/glove2.jpg)
 
 GloVe和Word2Vec在大数据集上performance上相差无几， 但Glove更适合并行化操作。在小数据集上， Word2Vec表现出了更好的performanece.
