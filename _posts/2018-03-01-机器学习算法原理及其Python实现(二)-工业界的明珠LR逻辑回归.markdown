@@ -134,7 +134,7 @@ def stocgredientAscent(x_matrix, y_vector, initialParameters, step, iter_times):
 
 我们通常选择单特征CTR评估来确定特征选择， CTR最准确的理解是， 在贝叶斯先验条件下， 目标为正例和负例的后验概率比（注意， 由于是后验概率， 所以正负例概率之和不是1， 实际上是远低于1的）， 以下例子对CTR的解释非常清晰：
 
-![CTR](/Users/weifanding/Desktop/pictures/LR05.jpg)
+![CTR](/img/LR05.jpg)
 
 可见， 正例概率为0.06, 负例概率0.04， CTR为0.6. 更具体的解释是， 
 
