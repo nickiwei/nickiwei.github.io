@@ -6,6 +6,8 @@ author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 深度学习
+    - NLP
+    - Word2Vec
 ---
 
 这个系列从最基础的word2vec开始， 从零开始实现深度网络在NLP领域的各类模型及其应用。 本系列要求读者对深度神经网络有基础的理解（如全连接网络， 卷积网络）等。
