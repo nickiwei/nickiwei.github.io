@@ -17,7 +17,7 @@ tags:
 
 *完整代码库请查看我的GithubRepo: <https://github.com/nick6918/MyMachineLearning> .部分代码参考了stanford CS229以及《机器学习实践》示例代码。*
 
-##特别说明
+## 特别说明
 
 1, 本系列中的code全部使用Python/Numpy编写， 在无特别说明的情况下， 未经验证的默认Python/Numpy提供的标准算法为时空复杂度最优的。
 
