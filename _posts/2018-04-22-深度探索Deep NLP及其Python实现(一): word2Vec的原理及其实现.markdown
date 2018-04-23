@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:深度探索Deep_NLP及其Python实现(一):word2Vec的原理及其实现
+title: 深度探索Deep_NLP及其Python实现(一):word2Vec的原理及其实现
 date:       2018-04-22 22:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
