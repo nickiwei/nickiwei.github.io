@@ -1,7 +1,7 @@
 ---
 layout:     post
 title: 深度探索Deep_NLP及其Python实现(一):word2Vec的原理及其实现
-date:       2017-12-22 13:00:00
+date:       2017-04-22 22:00:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
@@ -63,60 +63,172 @@ WordNet包含在Python自然语言处理的核心库nltk中， 首先确保你�
 
 # Word2Vec理解
 
+## 模型基础与目标function
+
 word2vec词向量的核心idea是， 我们希望把一个词作为已出现的词， 他周边的词出现在其周边的概率，如下图：
 	
 ![w2v](/img/222.jpg)
 
-由此， 我们可以容易的得到如下的loss function:
+由此， 我们可以容易的得到如下基本的loss function:
 
-	J = 1 − p(w−t |wt)
+	J = 1 − p(w−t |wt) 
 	
-对所有词而言， 总的loss为:
+同时， 在构造W2C模型时， 我们分别initialize两个V*D的矩阵（V是词库数量， D是词向量维度）， 分别代表每一个词作为中心词和窗口词时的向量， 之所以划分成两个矩阵， 主要还是考虑到帮助模型收敛， 防止模型过度震荡。
+
+训练完成后， 我们最终使用的词向量模型为两个矩阵之和（这是最简单有效的做法）
+
+	Y = O + C
+
+此时， 我们的目标函数objective function为
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C01.gif)
+
+## 单样本损失函数
+
+在对应的loss计算中， 我们有两种形式的loss可以应用：
+
+简单的就是CE loss:
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C02.gif)
+
+关于softmax cross entropy loss的深入分析， 可以查看这一系列的下一篇文章， 《深入分析softmax cross entropy loss》
+
+更适合的是采用Negative Sampling loss， 其形式为：
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C03.jpg)
+
+根据Markov et al在其论文中的叙述， 相比交叉商损失函数， 负采样损失函数的好处在于:
+
+* 模型不仅仅是找到正确的分类， 此外， 还增强了模型对抗噪音样本的能力
+* 在计算中， 负采样loss是更computing efficient的
+
+由此， 我们可以分别计算出两种不同的损失函数对uo, uc, vc的梯度：
+
+* CE loss
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C04.jpg)
+![objective_func](/Users/weifanding/Desktop/pictures/W2C05.jpg)
+
+* Negtive Sampling loss
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C06.jpg)
+
+具体计算如下（CE求梯， Neg同理不再详述）:
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C07.jpeg)
+
+## 多样本损失函数与模型训练
+
+注意， 以上的梯度计算均针对一组样本， 即一个中心词和一个对应的窗口词， 在实际模型训练时，我们采用的ngram模型要完成2n次这样的计算 。为此， 我们有两种训练方案：
+
+### skip gram
+
+Key idea:
+
+将中心词作为先验， 用每一个ngram窗口词作为label， 然后将所有的窗口词与当前中心词的loss相加， 此时， 总的loss为：
+
+![objective_func](/Users/weifanding/Desktop/pictures/W2C09.jpg)
+	
+其中， O表示ngram窗口词， C表示中心词。 注意， 当我们把所有loss相加时， 在反向传播中， loss的梯度被完整的传递给了每一个窗口词， 同时， 中心词得到了n次等量的梯度更新。
+
+### CBOW
+
+Key idea：
+
+CBOW的思路不是那么直观， 但是是一种计算上更有效率的做法， 我们将所有窗口词梯度相加， 然后与窗口词作一次softmax计算， 我们此时实际上在做的是， 利用ngram的所有窗口词去预估中心词， 此时的loss为:
 
 ![w2v](/img/c2c.jpg)
 
-我们使用两个词向量的内积作为其出现的可能性表示， 由于词存在两种不同的出现形式（中性词和窗口词）， 我们为每个词定义两组词向量。由此， 我们就可以引入word2vec的经典训练算法， skip-gram.
+此时， 反向传播中， 梯度首先传递给中心词， 和总和向量， 然后总和向量在分别传递给每一个窗口词， 因此， 中心词和每一个窗口词均更新一次梯度。
 
-![w2v](/img/skipgram.png)
+# Cost及梯度计算的实现
 
-在skipgram中， 我们最终将所有窗口词的loss相加， 构成总loss. 我们也可以将所有预测词向量相加， 直接与输出矩阵做内积得到。这种方案被称为 CBOW(Continuous Bag of Words).
+在实现了两种学习模型之后， 我们还需要为其设计合适的loss计算公式。 如上所述， 最常见的loss计算为Softmax Cross Entropy 和 Negative Sampling， 后者几乎可以看作是前者的性能优化。
 
-在最终loss function的计算上， 除了基本的softmax cross-entropy外， 还可以使用改进版的Negative Sampling, 它被证实在word2vec上可以得到更好的训练结果。
+### Softmax CrossEntropy
 
-![w2v](/img/nlp.jpg)
+这里， 我们实现了之前设计的softmax objective function, loss function和三个梯度计算公式。最终返回 cost 和 input matrix, output matrix的梯度。
+
+```python
+def softmaxCostAndGradient(predicted, target, outputVectors, dataset=None):
+
+    N, D = outputVectors.shape
+
+    inner_products = np.dot(outputVectors, predicted)
+    scores = softmax(inner_products) #(N, 1)
+    cost = -np.dot(outputVectors[target], predicted) + np.log(np.sum(np.exp(inner_products)))
+
+    gradPred = - outputVectors[target] + np.sum(scores.reshape(-1, 1) * outputVectors, axis=0)
+    grad = scores.reshape(-1, 1)* np.tile(predicted, (N, 1))
+    grad[target] -= predicted
+
+    return cost, gradPred, grad
+```
+### Negative Sampling
+
+在实现NegativeSampling的cost 和梯度计算之前， 我们首先实现一个负采样的辅助函数。在这个函数中， 我们从dataset中随机选取k个与target不一致的样本， 并输出index array.
+
+```python
+def getNegativeSamples(target, dataset, K):
+    """ Samples K indexes which are not the target """
+
+    indices = [None] * K
+    for k in xrange(K):
+        newidx = dataset.sampleTokenIdx()
+        while newidx == target:
+            newidx = dataset.sampleTokenIdx()
+        indices[k] = newidx
+    return indices
+```
+
+接下来， 我们利用之前设计的Negtive Sampling 的objective function， loss function和三个梯度公式， 最终返回cost 和 input matrix, output matrix的梯度。
+
+```python
+def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
+                               K=10):
+    indices = [target]
+    indices.extend(getNegativeSamples(target, dataset, K))
+
+    u0 = outputVectors[target]
+    selected_vectors = outputVectors[indices]
+    cost = -np.log(sigmoid(np.dot(u0, predicted)))-np.sum(np.log(sigmoid(np.dot(-selected_vectors, predicted))))
+
+    #gradPred = selected_units_minus_one[0]*outputVectors[target] - np.sum(selected_units_minus_one[1:].reshape(-1, 1)*outputVectors[indices][1:], axis = 0)
+    gradPred = (sigmoid(np.dot(u0, predicted)) - 1) * u0 - np.sum((sigmoid(np.dot(-selected_vectors, predicted))-1).reshape(-1, 1)*selected_vectors, axis=0)
+
+    grad = np.zeros_like(outputVectors)
+    grad_temp = -(sigmoid(np.dot(-selected_vectors, predicted))-1).reshape(-1, 1)*predicted
+    grad[target] = (sigmoid(np.dot(u0, predicted)) - 1).reshape(-1, 1)*predicted
+    np.add.at(grad, indices, grad_temp)
+
+    assert gradPred.shape == predicted.shape
+    assert grad.shape == outputVectors.shape
+
+    return cost, gradPred, grad
+```
+
+注意我们这里是用了一个比较特殊的numpy函数np.add.at, 非常方便。
+
+	np.add.at(grad, indices, grad_temp)
 
 # Word2Vec的实现
 
-如上所述， word2vec共有两种训练算法， skip_gram和CBOW, 此外， 还有两种loss function, softmax cross entropy和negative sampling.
+我们已经实现了基于训练中的一组样本（一个窗口词和一个中心词）完成cost和梯度计算。接下来我们要针对一组ngram样本（即一个中心词和一组ngram窗口词）完成计算。
+
+我们将分别实现skip gram和cbow, 值得注意的是， 我们引入word2vecCostAndGradient的函数参数， 使得两种模型在计算一组样本的cost和参数时， 可以自由选择softmax ce和negtive sampling两种算法。
 
 首先实现skip-gram:
 
 ```python
-def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
-             dataset, word2vecCostAndGradient=softmaxCostAndGradient):
+def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors, dataset, word2vecCostAndGradient=softmaxCostAndGradient):
     """ Skip-gram model in word2vec
-
-    Implement the skip-gram model in this function.
-
-    Arguments:
+    
     currrentWord -- a string of the current center word
     C -- integer, context size
     contextWords -- list of no more than 2*C strings, the context words
     tokens -- a dictionary that maps words to their indices in
               the word vector list
-    inputVectors -- "input" word vectors (as rows) for all tokens    #(N, D)
-    outputVectors -- "output" word vectors (as rows) for all tokens  #(N, D)
-    word2vecCostAndGradient -- the cost and gradient function for
-                               a prediction vector given the target
-                               word vectors, could be one of the two
-                               cost functions you implemented above.
-
-    Return:
-    cost -- the cost function value for the skip-gram model
-    grad -- the gradient with respect to the word vectors
     """
-
-	#We will not use C for all implementation
 
     cost = 0.0
     gradIn = np.zeros(inputVectors.shape)
@@ -162,53 +274,6 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
 ![grad](/img/grad.jpg)
 
 可以看出， 相比Skip-Gram， CBOW只完成一次卷积， 却同时更新了三组数据， 效率更高些。在实际应用中， CBOW也确实更常见些， 但二者的性能差异并不显著。特别注意， 窗口词的OutputVector是<b>n个一起</b>增加一次。
-
-# Cost及梯度计算的实现
-
-在实现了两种学习模型之后， 我们还需要为其设计合适的loss计算公式。 如上所述， 最常见的loss计算为Softmax Cross Entropy 和 Negative Sampling， 后者几乎可以看作是前者的性能优化。
-
-### Softmax CrossEntropy
-
-```python
-def softmaxCostAndGradient(predicted, target, outputVectors, dataset=None):
-
-    N, D = outputVectors.shape
-
-    inner_products = np.dot(outputVectors, predicted)
-    scores = softmax(inner_products) #(N, 1)
-    cost = -np.dot(outputVectors[target], predicted) + np.log(np.sum(np.exp(inner_products)))
-
-    gradPred = - outputVectors[target] + np.sum(scores.reshape(-1, 1) * outputVectors, axis=0)
-    grad = scores.reshape(-1, 1)* np.tile(predicted, (N, 1))
-    grad[target] -= predicted
-
-    return cost, gradPred, grad
-```
-### Negative Sampling
-
-```python
-def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
-                               K=10):
-    indices = [target]
-    indices.extend(getNegativeSamples(target, dataset, K))
-
-    u0 = outputVectors[target]
-    selected_vectors = outputVectors[indices]
-    cost = -np.log(sigmoid(np.dot(u0, predicted)))-np.sum(np.log(sigmoid(np.dot(-selected_vectors, predicted))))
-
-    #gradPred = selected_units_minus_one[0]*outputVectors[target] - np.sum(selected_units_minus_one[1:].reshape(-1, 1)*outputVectors[indices][1:], axis = 0)
-    gradPred = (sigmoid(np.dot(u0, predicted)) - 1) * u0 - np.sum((sigmoid(np.dot(-selected_vectors, predicted))-1).reshape(-1, 1)*selected_vectors, axis=0)
-
-    grad = np.zeros_like(outputVectors)
-    grad_temp = -(sigmoid(np.dot(-selected_vectors, predicted))-1).reshape(-1, 1)*predicted
-    grad[target] = (sigmoid(np.dot(u0, predicted)) - 1).reshape(-1, 1)*predicted
-    np.add.at(grad, indices, grad_temp)
-
-    assert gradPred.shape == predicted.shape
-    assert grad.shape == outputVectors.shape
-
-    return cost, gradPred, grad
-```
 
 # GloVe: 另一种思路
 
