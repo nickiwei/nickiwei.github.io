@@ -1,13 +1,11 @@
 ---
 layout:     post
 title: 深度探索Deep_NLP及其Python实现(一):word2Vec的原理及其实现
-date:       2018-04-22 22:00:00
+date:       2017-09-11 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 深度学习
-    - word2vec
-    - NLP
 ---
 
 这个系列从最基础的word2vec开始， 从零开始实现深度网络在NLP领域的各类模型及其应用。 本系列要求读者对深度神经网络有基础的理解（如全连接网络， 卷积网络）等。
