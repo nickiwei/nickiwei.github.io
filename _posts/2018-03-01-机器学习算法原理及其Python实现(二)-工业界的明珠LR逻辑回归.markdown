@@ -45,7 +45,7 @@ tags:
 
 最终， 我们得到如下的逻辑回归公式：
 
-![lr](/Users/weifanding/Desktop/pictures/LR01.jpg)
+![lr](/img/LR01.jpg)
 
 ## LR的地位
 
@@ -57,17 +57,17 @@ tags:
 
 讨论完了为什么引入逻辑回归， 我们希望解决的下一个问题是， 如何优化逻辑回归的待估参数。 由于sigmoid函数是一个固定无参函数， 因此， 优化线性回归和优化逻辑回归， 实际上， 优化的是同一批参数。 为此， 我们先来看一下我们是如何通过构造并优化线性回归的损失函数来优化线性回归的。
 
-![Linear_cost](/Users/weifanding/Desktop/pictures/LR02.jpg)
+![Linear_cost](/img/LR02.jpg)
  
 由此， 我们可以看出， Linear Regression的cost function为：
 
-![Linear_cost](/Users/weifanding/Desktop/pictures/LR03.jpg)
+![Linear_cost](/img/LR03.jpg)
 
 这与我们在统计学上利用最小二乘法求线性回归的最优解是一致的。
 
 那么， 逻辑回归呢？《统计学习方法》中演算如下：
 
-![Linear_cost](/Users/weifanding/Desktop/pictures/LR04.jpg)
+![Linear_cost](/img/LR04.jpg)
 
 由此， 我们可以看出， 利用最大似然法得到的逻辑回归的损失函数， 其实就是常用的交叉商。
 
