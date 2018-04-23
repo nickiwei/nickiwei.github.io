@@ -1,8 +1,6 @@
-# 机器学习算法原理及其Python实现(二):工业界的明珠——LR逻辑回归
-
 ---
 layout:     post
-title: 机器学习算法原理及其Python实现(二):工业界的明珠——LR逻辑回归
+title:机器学习算法原理及其Python实现(二):工业界的明珠——LR逻辑回归
 date:       2018-03-01 12:01:00
 author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
