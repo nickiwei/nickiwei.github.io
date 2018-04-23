@@ -6,6 +6,8 @@ author:     "nickiwei"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 深度学习
+    - word2vec
+    - NLP
 ---
 
 这个系列从最基础的word2vec开始， 从零开始实现深度网络在NLP领域的各类模型及其应用。 本系列要求读者对深度神经网络有基础的理解（如全连接网络， 卷积网络）等。
@@ -81,7 +83,7 @@ word2vec词向量的核心idea是， 我们希望把一个词作为已出现的�
 
 此时， 我们的目标函数objective function为
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C01.gif)
+![objective_func](/img/W2C01.gif)
 
 ## 单样本损失函数
 
@@ -89,13 +91,13 @@ word2vec词向量的核心idea是， 我们希望把一个词作为已出现的�
 
 简单的就是CE loss:
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C02.gif)
+![objective_func](/img/W2C02.gif)
 
 关于softmax cross entropy loss的深入分析， 可以查看这一系列的下一篇文章， 《深入分析softmax cross entropy loss》
 
 更适合的是采用Negative Sampling loss， 其形式为：
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C03.jpg)
+![objective_func](/img/W2C03.jpg)
 
 根据Markov et al在其论文中的叙述， 相比交叉商损失函数， 负采样损失函数的好处在于:
 
@@ -106,16 +108,16 @@ word2vec词向量的核心idea是， 我们希望把一个词作为已出现的�
 
 * CE loss
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C04.jpg)
-![objective_func](/Users/weifanding/Desktop/pictures/W2C05.jpg)
+![objective_func](/img/W2C04.jpg)
+![objective_func](/img/W2C05.jpg)
 
 * Negtive Sampling loss
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C06.jpg)
+![objective_func](/img/W2C06.jpg)
 
 具体计算如下（CE求梯， Neg同理不再详述）:
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C07.jpeg)
+![objective_func](/img/W2C07.jpeg)
 
 ## 多样本损失函数与模型训练
 
@@ -127,7 +129,7 @@ Key idea:
 
 将中心词作为先验， 用每一个ngram窗口词作为label， 然后将所有的窗口词与当前中心词的loss相加， 此时， 总的loss为：
 
-![objective_func](/Users/weifanding/Desktop/pictures/W2C09.jpg)
+![objective_func](/img/W2C09.jpg)
 	
 其中， O表示ngram窗口词， C表示中心词。 注意， 当我们把所有loss相加时， 在反向传播中， loss的梯度被完整的传递给了每一个窗口词， 同时， 中心词得到了n次等量的梯度更新。
 
