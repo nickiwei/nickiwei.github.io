@@ -57,7 +57,7 @@ TPR就是Recall. 用来计算所有阳性中， 被发现的阳性 在所有阳�
 
 假设我们关心的是阳性被更“正确地”判定出来， 那么准召是更适合需求的指标。FPR和TPR这组指标看似直接利用价值不大， 但是他引入了另一个非常重要的指标： ROC曲线。 一个典型的ROC曲线如下：
 
-![ConMx](/Users/weifanding/Desktop/pictures/ZB02.png)
+![ConMx](/img/ZB02.png)
 
 如何理解FPR, TPR, ROC这三个指标呢？ 首先， FPR和TPR将数据按照其真实分类分成两个完全独立的部分，在Positive数据中看正确被判出的几率， 在Negative 数据中看错误被判为阳性的几率， 然后利用ROC曲线将这两组数据结合在一起。
 
@@ -114,11 +114,11 @@ AUC可以理解为从1样本中选择一个样本， 从0样本中选择一个�
 
 当AUC为0.5, 如下图， 我们可以看出， 无论threshhold设为多少， 模型均有一半概率将1样本或者0样本判定为1， 模型完全随机判定。
 
-![AUC0.5](/Users/weifanding/Desktop/pictures/ZB03.jpg)
+![AUC0.5](/img/ZB03.jpg)
 
 更常见的ROC曲线如下图所示， 不同threshhold下， 模型取得的比例是不一致的， 但一般均大于0.5, 在某一threshhold下，模型取得最接近于(0, 1)的比值。 整体而言， AUC大于0.5.
 
-![AUCBigger0.5](/Users/weifanding/Desktop/pictures/ZB04.jpg)
+![AUCBigger0.5](/img/ZB04.jpg)
 
 # AUC 与 准召
 
@@ -209,7 +209,7 @@ m是词共现的数量， 即所有在机器翻译中的词在label翻译中也�
 
 综上， 我们最后给出BLEU的定义
 
-![BLEU](/Users/weifanding/Desktop/pictures/ZB05.jpg)
+![BLEU](/img/ZB05.jpg)
 
 wn是ngram的倒数。 特别的， 当ngram=4时的log值， 是一个非常常用的指标， 简称BLEU4.
 
@@ -223,9 +223,9 @@ wn是ngram的倒数。 特别的， 当ngram=4时的log值， 是一个非常常
 
 具体的计算方式
 
-![BLEU](/Users/weifanding/Desktop/pictures/ZB07.jpg)
+![BLEU](/img/ZB07.jpg)
 	 
-![BLEU](/Users/weifanding/Desktop/pictures/ZB06.jpg)	
+![BLEU](/img/ZB06.jpg)	
 与BLEU相比， 只是把机器翻译句中的ngram数换成了 label翻译中的ngram数， 同时不进行BP惩罚。
 
 CAR有其自身问题， 比如人工翻译中的语义并不一定全部完整且不多余的表达原句中的语义， 同时， 不区分关键语义等， 但作为辅助BLEU的一个指标， 有其存在的价值。
