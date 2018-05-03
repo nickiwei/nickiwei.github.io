@@ -16,7 +16,7 @@ tags:
 
 完整代码库请查看我的GithubRepo: https://github.com/nick6918/MyNLP .部分代码参考了Stanford CS224n 课程作业。
 
-## Before Word2Vec: WordNet
+# Before Word2Vec: WordNet
 
 WordNet是一个词典语意库， 每一个语义被封装成了一个sense对象。 同一个word可能对应多个sense， 同一个sense也可以对应多个word. WordNet是传统NLP sentence understanding最经典的处理工具。每一个（word， sense）被称为一个lemma. 重点就是， wordNet是一个记录词与词关系的词库。
 
