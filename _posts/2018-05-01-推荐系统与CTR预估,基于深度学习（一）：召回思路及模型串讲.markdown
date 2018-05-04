@@ -50,7 +50,7 @@ DSSM是微软2013年发表的一个query/doc相似度计算模型， 后来被�
 
 ![DSSM](/img/ZH04.png)
 
-在实际的训练中， 我们提出一种类似word2vec negative sampling的负采样方式进行训练。在每一次迭代中， 我们都选取一个正样本和四个负样本， 最后的loss计算中， 我们取负采样交叉商， P(D+|Q)取正loss， P(D-|Q)取负loss， 如下图:
+在实际的训练中， 我们提出一种类似word2vec negative sampling的负采样方式进行训练。在每一次迭代中， 我们都选取一个正样本和四个负样本， 最后的loss计算中， 我们取负采样交叉商， P(D+\|Q)取正loss， P(D-\|Q)取负loss， 如下图:
 
 ![DSSM](/img/ZH07.jpg)
 
