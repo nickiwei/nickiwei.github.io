@@ -21,7 +21,7 @@ tags:
 
 在一般分类问题中， 我们常用的所有指标如下：
 
-![ConMx](/Users/weifanding/Desktop/pictures/ZB01.png)
+![ConMx](/img/ZB01.png)
 
 样本的真实0/1分类(True Class)和机器分类(Hypothesized Class)组成了一个2*2矩阵， 称之为混淆矩阵。 
 
@@ -226,6 +226,7 @@ wn是ngram的倒数。 特别的， 当ngram=4时的log值， 是一个非常常
 ![BLEU](/img/ZB07.jpg)
 	 
 ![BLEU](/img/ZB06.jpg)	
+
 与BLEU相比， 只是把机器翻译句中的ngram数换成了 label翻译中的ngram数， 同时不进行BP惩罚。
 
 CAR有其自身问题， 比如人工翻译中的语义并不一定全部完整且不多余的表达原句中的语义， 同时， 不区分关键语义等， 但作为辅助BLEU的一个指标， 有其存在的价值。
