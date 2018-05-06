@@ -123,7 +123,7 @@ DSSM的key idea是：
 
 ## MV-DSSM的训练
 
-首先， 我们需要构造合适的数据集。 我们实际构造的向量是一个(user, item view)二元对，它包含一个用户点击的item view及其对应的user信息。 在训练时， 被选中的item view进行embedding， 其他item view全部用0向量填充。 我们希望优化的目标是， 所有P(Item|User)之和最小。其公式如下：
+首先， 我们需要构造合适的数据集。 我们实际构造的向量是一个(user, item view)二元对，它包含一个用户点击的item view及其对应的user信息。 在训练时， 被选中的item view进行embedding， 其他item view全部用0向量填充。 我们希望优化的目标是， 所有P(Item\|User)之和最小。其公式如下：
 
 ![DSSM](/img/ZH10.jpg)
 
