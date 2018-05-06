@@ -41,7 +41,8 @@ DSSM是微软2013年发表的一个query/doc相似度计算模型， 后来被�
 
 模型很容易理解， 首先， 我们将Query和Doc词向量（one hot）转化为embedding向量， 这里， 针对英文输入， 原论文中提出了一种特殊的embedding方法， 用来显著降低embedding字典规模， 称为word hashing， 但是中文中这种方式不是很适用， 我们在中文embedding时， 使用传统的方式进行embedding即可（word hashing 方法会在下一部分详细介绍）
 
-经过embedding后的词向量， 会喂给DNN进行多层projection， 与绝大多数nlp问题一致， 我们选择tanh激活函数。 之后， Query和Doc向量会进行一次cos相似度计算， 得到R(Q, Dn), 各个R(Q, Dn)通过softmax归一化后得到最终的指标P(Dn|Q).
+
+经过embedding后的词向量， 会喂给DNN进行多层projection， 与绝大多数nlp问题一致， 我们选择tanh激活函数。 之后， Query和Doc向量会进行一次cos相似度计算， 得到R(Q, Dn), 各个R(Q, Dn)通过softmax归一化后得到最终的指标P(Dn\|Q).
 
 公式如下：
 
@@ -49,7 +50,7 @@ DSSM是微软2013年发表的一个query/doc相似度计算模型， 后来被�
 
 ![DSSM](/img/ZH04.png)
 
-在实际的训练中， 我们提出一种类似word2vec negative sampling的负采样方式进行训练。在每一次迭代中， 我们都选取一个正样本和四个负样本， 最后的loss计算中， 我们取负采样交叉商， P(D+|Q)取正loss， P(D-|Q)取负loss， 如下图:
+在实际的训练中， 我们提出一种类似word2vec negative sampling的负采样方式进行训练。在每一次迭代中， 我们都选取一个正样本和四个负样本， 最后的loss计算中， 我们取负采样交叉商， P(D+\|Q)取正loss， P(D-\|Q)取负loss， 如下图:
 
 ![DSSM](/img/ZH07.jpg)
 
