@@ -1,0 +1,160 @@
+---
+layout:     post
+title: #千亿特征的离散DNN模型探秘（一）：特征构造
+date:       2020-02-20 12:01:00
+author:     "nickiwei"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 机器学习
+    - Bayes
+---
+
+
+#千亿特征的离散DNN模型探秘（一）：特征构造
+
+经过多年的发展， 离散DNN模型已经取代LR/NN/连续DNN等模型， 成为目前最主流， 也是规模最大的推荐模型， 是单一模型中， 预测效果最好的。其特征值可以达到千亿规模（百度凤巢）， 在微软， 阿里等其他大厂也纷纷达到数百亿规模。而模型也可以达到几十甚至上百g大小，堪称是算法模型中的“重器”。
+
+本文将从特征构造， 模型架构， 训练， 线上服务等多角度， 尽可能全面的梳理离散dnn模型的技术特点， 以飨读者。
+
+## DNN的连续特征和离散特征表示
+
+
+对于推荐系统模型而言， 其输入为包含query, user, ad信息在内的结构化数据， 如何将这种结构化数据表示成nn可以理解的向量表示呢？通常有两种表示方法， 即连续特征和离散特征。
+
+### 连续特征
+连续特征， 顾名思义， 其特征是连续值。这些连续值通常是一些针对QUA三侧的统计结果的均一化表示， 即EC/COEC, 粗糙的理解， 就是counting.
+
+举例而言， 最简单的counting table 就是ad show/click， 亦即， 当我们需要计算某一广告时， 直接将该广告在过去一段时间内的展现点击数量当作一个特征喂给模型， 这就成为了模型的一个连续特征。
+
+连续特征可以做的非常复杂， 对于连续特征， 可以参考下文， 《推荐系统中的连续特征表示》， 在这篇文章中， 我详细列举了包括web counting, term counting等在内的多种计数特征。在此， 我们在举一个稍微复杂一些的例子。
+
+<b>RT User Term Counting
+用户特征词实时计数</b>
+
+我们可以对某一user在过去一段时间内所点击的广告标题（也可以是别的文本， 这里以标题为例）的所有term(中文中即句子分词以后的每一个词)进行计数。 具体而言， 这个特征就变成了形如(clientID\_X_term, count)的键值对。 可以想象， 这是一张非常巨大的table， 但是通过一些简单的处理， 比如只计数在过去一段时间内有展现的广告term等， 我们可以控制table的规模在几个gb这个水平上， 不至于过大。 
+
+值得注意的是， 我们可以想象， 在这张表中， 存在着大量的0值， 因为用户点击的广告是极其有限的， 所以client\_X_term中， 大量的term根本未被用户点击， 值为0. 因此， 对某一用户而言，我们最终查表取到的是一个非常稀疏的长向量，可能形如下示：
+
+```
+[0,0,0,0,...,0,0,1,0,0,0,...,12,36,0,0,...,0,5,0,0]
+```
+
+但不论是否为0， 也不论0的多少， 由于向两量中存在非0非1的连续计数值， 所以这仍然是连续特征表示， 而不是离散表示， 再之后的介绍中我们可以看到， 离散表示的特征向量同样具有大量为0的特点， 但是非0值只有1， 每一位只表示该特征是否存在， 而未进行任何的计数， 即one_hot。 这一点是非常重要的。
+
+用连续特征作为输入的NN/DNN模型， 就是连续NN/DNN模型， 事实上， 对于浅层NN模型而言， 离散特征是无法收敛的， 因此只存在连续nn, 不存在离散NN模型。离散的一定是DNN.
+
+## 离散特征
+
+下面我们来介绍离散特征， 所谓的离散特征， 就是one\_hot, 只不过这个one\_hot特征可以表示的很复杂， 但归根结底， 还是个one\_hot， 什么是one_hot, 相信绝大多数读者已经非常熟悉了。 这里我们简单做一个介绍。
+
+### One_hot向量
+
+假设我有如下的一句话， 
+
+I have a dog.
+
+同时， 我有如下的一个不区分大小写的词表.
+
+{I, me, you, have, had, a, an, dog, cat, pig}
+
+那么， 如何表示上述这句话呢， 我们可以用词表中的词在这句话中是否存在来表示。
+
+如 I have a dog就可以表示为：
+
+```
+{I, me, you, have, had, a, an, dog, cat, pig}
+
+[1, 0, 0, 1, 0, 1, 0, 1, 0, 0]
+```
+
+这里每一个1/0都表示词表中对应位置的词在该句话中是否出现，注意只表示是否出现， 因此只会录的0，1， 而不会出现其他连续值。
+
+这里我们发现， 有两个信息在离散特征表示的时候被忽略了。
+
+1, 句子中词的顺序。对任何句子表示， 词表是固定的， 因此词向量中词出现的位置也是固定的， 句子中词出现的顺序就被忽略了。事实上， 这是我们希望看到的， 一般情况下， 我们认为每一个词的词义的合集已经足够我们在推荐中表示这个句子了， 如果你认为词出现的顺序是一个很重要的信息， 那么你应该使用类似RNN这样的模型， 或者使用pre-train 模型的term embedding代替离散特征（参考\<RNN, Transformer, Bert, 文本理解中的预训练模型串讲>一文。）， 而不应该使用离散DNN模型。
+
+2，句子中词出现的数量也是被忽略的。
+
+同理， 我们只看这个词出现了没， 不看出现了几次， 如果这个词出现了几次这个信息是非常重要的， 那你应该使用连续 nn模型。
+
+#### 离散DNN模型中的离散特征
+
+一个最直接的想法， 我直接构造所有User\_X_Term（AdTitle, Query等）的词表是否可行呢？这是不可行的， 全量的term在千万级， user的数量也在百万千万级， 相乘起来， 仅这一个特征就是天文数字， 服务器根本不可能支撑。 因此， 即使是离散特征， 我们仍然需要进行一定的设计。
+
+在离散模型的特征设计中， 我们分成两大类的特征， 一是term类特征， 这类特征只含有term信息（如Ad侧的AdTitle, Query侧的 query等等），User无法通过term表示。仅使用Term类特征的离散DNN模型， 我们称之为TermDNN.另一类除了含有term类特征之外， 还包含了id类特征， 这样user侧的user可以使用ClientId, ad侧也可以使用AdvertiserID, CampaignId这样的特征， 这样， 模型可以学习更为复杂的离散特征， 效果也更好，  使用了Id类特征的DNN模型，我们称之为IdDNN.
+
+## Term类特征与TermDNN
+
+那么， 下一个问题是， 如果我们仅使用TermDNN, 那么， 我们就以Term本身构造离散特征是否可行呢？ 事实上是可行的， 但是实验证明， 这个模型学习效果非常差。 因为仅仅输入term是否出现的信息过于简单， 对于深度模型而言， 可能无法使模型收敛， 为了使模型取得更好的效果， 我们需要对这些信息进行更为复杂一些的特征工程。
+
+当然，在一些简单的离散feature上， 直接one_hot也是可行的， 比如， 在训练模型时， 为了纠偏， 我们常常将广告展现的位置当作一个feature单独喂给模型的最后一层， 在构造feature时， 我们就可以直接将广告位做成一个one_hot feature，喂给模型。 但是对于更加复杂的term和id类feature，这一思路则不可行。
+
+那么如何构造term类特征呢？ 如前所述， term类特征， 我们主要学习query和ad之间的相关性， 不引入user，这里我们引入一个极其重要的函数, 
+
+```
+MatchUnMatch(query, doc)
+```
+
+这个函数输入两个文本， 一般的， 我们输入需要计算的query和ad（adtitle等）， 输出是对query和doc匹配性的一系列计算结果组成的数组， 记为result.
+
+* result 0: query side的match term
+* result 1: query side的not match term
+* result 2: doc side的match term
+* result 3: doc side的not match term
+* result 4: query side match unmatch indices
+* result 5: doc side match unmatch indices
+* result 6: query side match term length
+* result 7: doc side match term length
+
+0和1返回值是最常用的直接构造特征的结果。以如下特征为例:
+
+```
+MatchUnMatch(query, adtitle)\_0\_X\_MatchUnMatch(query, adtitle)_1
+```
+
+这样我们就构造了一个离散特征， 这个特征是query 和adtile的匹配词和不匹配词crossing以后的结果。举例，
+
+```
+query: latest iphone
+adtitle: iphone 11 all colors
+
+则构造出了一个如下的特征:
+(iphone, latest) 
+```
+
+一般的， 我们选择一个月至三个月的训练数据进行训练， 特征的规模大概在100m左右。
+
+同样基于query和adtitle, 我们还可以利用matchunmatch函数构造出其他类似的函数， 比如
+
+```
+MatchUnMatch(query, adtitle)\_0\_X\_MatchUnMatch(query, adtitle)_2
+MatchUnMatch(query, adtitle)\_0\_X\_MatchUnMatch(query, adtitle)_3
+MatchUnMatch(query, adtitle)\_1\_X\_MatchUnMatch(query, adtitle)_2
+MatchUnMatch(query, adtitle)\_1\_X\_MatchUnMatch(query, adtitle)_3
+MatchUnMatch(query, adtitle)\_2\_X\_MatchUnMatch(query, adtitle)_3
+```
+
+实验证明， 这些函数特征在实际系统中都表现出了良好的效果，但相互之间也有overlap， 限于模型规模的原因， 针对同一组query， doc， 我们会选择2-3个特征加入模型中。具体加入哪些加入几个由离线实验的效果决定， 不可同一而论。
+
+此外， 除了adtitle， 在ad端还有adtext， displayurl等， 都可以构成不同的特征， 他们也都能够在(query, adtitle)的基础上， 贡献额外的auc.
+
+除了0-3这些直接输出term group的返回值外， 我们还可以利用match indice和match term length构造更复杂的特征。比如，
+
+```
+UnmatchedBigram(MatchUnMatch(query, adtitle)_4, query)
+```
+
+这个函数利用query端的匹配结果， 将query中匹配了的词组合成bigram构成特征。这主要是希望模型能够利用到bigram连续信息。在设计feature上可以说是充分发挥想象的地方， 在此不一一列举。
+
+这些feature， 最终都会变为one_hot向量喂给模型。至于模型的特点和训练等， 我们将在下一篇模型训练篇中详细介绍。
+
+## Id类特征及ddnn
+Term类模型最大的问题是无法引入user相关的信息， 下面， 我们介绍id类特征。 在理解了term类特征之后， id类特征很好理解， 比如
+
+```
+ClientId_X_MatchUnMatch(query, adtitle)\_0\_X\_MatchUnMatch(query, adtitle)_1
+```
+
+///TODO: 控制特征的规模
+
+ 以上我们介绍了离散DNN模型的特征构造， 在下一篇中， 我们将详细介绍TermDNN和IdDNN模型的数据处理， 训练及调优等。  
